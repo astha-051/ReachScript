@@ -1,0 +1,23 @@
+CAMPAIGN "Smart Outreach"
+
+SET TONE = FRIENDLY
+SET LENGTH = MEDIUM
+SET SENDER = "ReachScript AI"
+SET SUBJECT = "AI Automation for Your Business"
+SET DRY_RUN = TRUE
+
+LOAD LEADS FROM "leads.csv"
+
+FOR EACH LEAD
+
+    VERIFY COMPANY
+    RESEARCH COMPANY
+
+    IF VERIFIED OR RESEARCH_VALID
+        PERSONALIZE EMAIL
+        PREVIEW EMAIL
+    ELSE
+        LOAD LEADS FROM "leads.csv"
+    END
+
+END
