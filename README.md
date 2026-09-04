@@ -1101,3 +1101,209 @@ END
 ```
 
 **Write the workflow. Let ReachScript execute it.**
+
+## 🚀 Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/astha-051/ReachScript.git
+cd ReachScript
+```
+
+### 2. Create a virtual environment
+
+#### Windows
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+```
+
+#### macOS / Linux
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure environment variables
+
+Create a `.env` file in the project root:
+
+```env
+GEMINI_API_KEY=your_gemini_api_key
+EMAIL_ADDRESS=your_email@gmail.com
+EMAIL_APP_PASSWORD=your_app_password
+```
+
+> Never commit your `.env` file to GitHub. Use `.env.example` as a template.
+
+### 5. Run a ReachScript program
+
+ReachScript programs use the `.reach` file extension.
+
+The easiest way to run a program is:
+
+```bash
+python run.py examples/basic.reach
+```
+
+You can also run the other example programs:
+
+```bash
+python run.py examples/conditional.reach
+```
+
+```bash
+python run.py examples/advanced.reach
+```
+
+For the SMTP email demonstration:
+
+```bash
+python run.py examples/real_email.reach
+```
+
+⚠️ `real_email.reach` contains:
+
+```reach
+SET DRY_RUN = FALSE
+```
+
+This enables actual email sending. For safe testing, change it to:
+
+```reach
+SET DRY_RUN = TRUE
+```
+
+### 6. Write your own ReachScript program
+
+Create a `.reach` file inside the `examples/` directory.
+
+For example:
+
+```reach
+CAMPAIGN "My First Campaign"
+
+SET TONE = FRIENDLY
+SET LENGTH = SHORT
+SET SENDER = "ReachScript AI"
+SET SUBJECT = "AI Automation Opportunity"
+SET DRY_RUN = TRUE
+
+LOAD LEADS FROM "leads.csv"
+
+FOR EACH LEAD
+
+    VERIFY COMPANY
+    RESEARCH COMPANY
+    PERSONALIZE EMAIL
+    PREVIEW EMAIL
+    SEND EMAIL
+
+END
+```
+
+Then run it with:
+
+```bash
+python run.py examples/my_campaign.reach
+```
+
+### 📁 Understanding the project structure
+
+```text
+ReachScript/
+│
+├── run.py                    # Main CLI entry point
+│
+├── reachscript/              # ReachScript language implementation
+│   ├── lexer.py              # Converts source code into tokens
+│   ├── parser.py             # Builds the program structure
+│   ├── interpreter.py        # Executes ReachScript programs
+│   ├── verifier.py           # Company verification
+│   ├── researcher.py         # Company research
+│   ├── personalizer.py       # AI email personalization
+│   ├── email_sender.py       # SMTP email sending
+│   ├── errors.py             # ReachScript error handling
+│   └── ...
+│
+├── examples/                 # Example ReachScript programs
+│   ├── basic.reach
+│   ├── conditional.reach
+│   ├── advanced.reach
+│   └── real_email.reach
+│
+├── sample_data/              # Sample lead CSV files
+│   ├── leads.csv
+│   └── demo_leads.csv
+│
+├── tests/                    # Language and component tests
+│
+├── results/                  # Generated campaign results
+│
+├── requirements.txt          # Python dependencies
+├── .env.example              # Environment variable template
+├── .gitignore
+└── README.md
+```
+
+### 🧪 Running the tests
+
+The examples above demonstrate how to **use ReachScript**.
+
+The test modules are for developers working on the language:
+
+```bash
+python -m tests.test_lexer
+```
+
+```bash
+python -m tests.test_parser
+```
+
+```bash
+python -m tests.test_interpreter
+```
+
+```bash
+python -m tests.test_email_sender
+```
+
+### ⭐ Which file should I run?
+
+If you are a **new user**, start with:
+
+```bash
+python run.py examples/basic.reach
+```
+
+If you want to see conditional logic:
+
+```bash
+python run.py examples/conditional.reach
+```
+
+If you want to see advanced conditions:
+
+```bash
+python run.py examples/advanced.reach
+```
+
+If you want to demonstrate actual SMTP email sending:
+
+```bash
+python run.py examples/real_email.reach
+```
+
+**You normally do not need to run anything inside `tests/`.**
+
+The `run.py` file is the main entry point for executing ReachScript programs.
+
